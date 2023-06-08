@@ -21,6 +21,7 @@ Base.prepare(autoload_with=engine)
 
 # Save references to each table
 Ticker = Base.classes.ticker
+TimeStamp = Base.classes.timestamp
 Open = Base.classes.open
 High = Base.classes.high
 Low = Base.classes.low
