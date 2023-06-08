@@ -12,6 +12,8 @@ from config import api_key
 # https://www.geeksforgeeks.org/saving-text-json-and-csv-to-a-file-in-python/
 # https://stackoverflow.com/questions/522563/accessing-the-index-in-for-loops
 
+# https://github.com/AnyChart/AnyChart
+
 
 #######################################################
 
@@ -22,21 +24,26 @@ keys = []
 
 with open("zacks_screen.csv", 'r') as file:
     csvreader = csv.reader(file)
+    next(csvreader, None) # skip header
     for row in csvreader:
         tickers.append(row[1])
     
     # debug
     #print(tickers)    
 
+print(tickers)    
+
 # make an API call for information on the tickers
-for idx, TK in enumerate(tickers[:3]): 
+for idx, TK in enumerate(tickers[:2]): # testing purposes: print only the first ticker information
     
     demo_url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo'
-    url = 'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + TK + '&interval=5min&apikey=' + api_key
+    #url =       'https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=' + TK + '&interval=5min&apikey=' + api_key
     
     r = requests.get(demo_url)  # use demo_url for testing... switch back to url for live
     data = r.json()
     stock_information.append(data)
+    
+    
     
     time_series = data["Time Series (5min)"]
 
@@ -59,7 +66,8 @@ for idx, TK in enumerate(tickers[:3]):
                 print(f"c: {value}" ) #temp action        
         
             #print(f"{key}: {value}")
-        print()
+        print()    
+    
     
     
 # debug our database
