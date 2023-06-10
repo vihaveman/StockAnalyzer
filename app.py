@@ -4,7 +4,7 @@ import numpy as np
 
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
-from sqlalchemy import create_engine, func, inspect
+from sqlalchemy import create_engine, func, inspect, Date
 
 import psycopg2 # pip install psycopg2
 
@@ -84,15 +84,21 @@ def home():
 @app.route("/Microsoft_DB")        # connect to database
 def microsoft():
     #grab from database
+    # https://www.epochconverter.com/
     results = session.query(Microsoft.Date, Microsoft.Open, Microsoft.High, Microsoft.Low, Microsoft.Close, Microsoft.Adj_Close, Microsoft.Volume)
     df = pd.DataFrame(results, columns=['Date', 'Open', 'High', 'Low', 'Close', 'Adj_Close', 'Volume'])
-    sizeOfdf = len(df)
+    # https://stackoverflow.com/questions/63562188/pandas-to-json-date-format-is-changing
+    # https://stackoverflow.com/questions/28590663/pandas-dataframe-to-json-without-index
+    # https://www.geeksforgeeks.org/how-to-convert-pandas-dataframe-into-json-in-python/
+    df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
+    microsoft_json = df.to_json(orient='records', date_format='iso', index='False')    # originally was returning horizontal lines with epoch date format
+    
     
 
     #df.plot(x= ???, y= ???, rot=90)
     plt.xlabel("Date")
     plt.ylabel("???")
-    return("done")
+    return(microsoft_json)
 
 
 @app.route("/Tesla_DB")            # connect to database
@@ -100,12 +106,13 @@ def tesla():
     #grab from database 
     results = session.query(Tesla.Date, Tesla.Open, Tesla.High, Tesla.Low, Tesla.Close, Tesla.Adj_Close, Tesla.Volume)
     df = pd.DataFrame(results, columns=['Date', 'Open', 'High', 'Low', 'Close', 'Adj_Close', 'Volume'])
-    
+    df['Date'] = pd.to_datetime(df['Date']).dt.strftime('%Y-%m-%d')
+    tesla_json = df.to_json(orient='records', date_format='iso', index='False')
 
     #df.plot(x= ???, y= ???, rot=90)
     plt.xlabel("Date")
     plt.ylabel("???")
-    return("done")
+    return(tesla_json)
     
 
 @app.route('/<Ticker>')         # connect to API
@@ -116,7 +123,7 @@ def CS(Ticker):
 
     r = requests.get(url)  # use demo_url for testing... switch back to url for live
     data = r.json()
-    
+
     return(data)
 
 
