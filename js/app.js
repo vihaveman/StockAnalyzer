@@ -1,6 +1,8 @@
 //var data = "https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol={ticker}&apikey={APIKEY}&outputsize=full').json()"
 //var chart = anychart.fromJson(data);
 
+
+
 anychart.onDocumentReady(function (ticker) {
   //anychart.data.loadCsvFile(
    // 'https://gist.githubusercontent.com/shacheeswadia/cd509e0b0c03964ca86ae7d894137043/raw/5f336c644ad61728dbac93026f3268b86b8d0680/teslaDailyData.csv',
@@ -45,7 +47,7 @@ anychart.onDocumentReady(function (ticker) {
                  
       };
 
-      console.log(dataString);
+      // console.log(dataString);
 
       var dataTable = anychart.data.table();
       dataTable.addData(dataString);
@@ -72,6 +74,7 @@ anychart.onDocumentReady(function (ticker) {
 
       series.legendItem().iconType('rising-falling');
 
+      
       // create scroller series with mapped data
       chart.scroller().candlestick(mapping);
 
@@ -92,7 +95,10 @@ anychart.onDocumentReady(function (ticker) {
       //rangeSelector.render(chart);
 
       // sets the title of the chart
-      chart.title('IBM Stock Chart');
+      chart.title('IBM Stock Chart - 5min intervals');
+      
+      
+
 
       // set container id for the chart
       chart.container('container');
