@@ -1,18 +1,10 @@
-// const button = document.querySelector("button");
-
-// button.addEventListener("click", (event) => {
-//   button.textContent = `Click count: ${event.detail}`;
-// });
-
-
-
 anychart.onDocumentReady(function () {
     
-    anychart.data.loadJsonFile("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo", 
+    anychart.data.loadJsonFile("https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=IBM&apikey=demo", 
     function (data) {
 
-        let myStockData = data['Time Series (5min)'];
-        //console.log(myStockData);
+        let myStockData = data['Time Series (Daily)'];
+        console.log(myStockData);
         let datesRaw = Object.keys(myStockData)
         let dates = []
         let volume = []
@@ -30,7 +22,7 @@ anychart.onDocumentReady(function () {
   
         for (let i = 0; i < datesRaw.length; i++) { 
           dates.push(datesRaw[i])//.split(' ')[1])
-          volume.push(myStockData[datesRaw[i]]['5. volume'])
+          volume.push(myStockData[datesRaw[i]]['6. volume'])
   
           let stockString = `${dates[i]},${volume[i]}\n`
           dataString += stockString
@@ -39,11 +31,13 @@ anychart.onDocumentReady(function () {
         };
   
         
-
+    // console.log(dataString);
 
     // create a data table
     var table = anychart.data.table();
     table.addData(dataString);
+
+    console.log(table);
 
     // map value and fill
     var mapping = table.mapAs({value: 1, fill: 2});
@@ -57,10 +51,10 @@ anychart.onDocumentReady(function () {
 
     
     // draw a chart
-    chart.container('container-bar_chart');
+    chart.container('container_db');
 
     var title = chart.title();
-    chart.title("IBM Stock Trading Volume - 5min intervals");
+    chart.title("IBM Stock Trading Volume - Daily");
     title.fontSize(18);
     // underline text
     //title.fontDecoration("underline");
