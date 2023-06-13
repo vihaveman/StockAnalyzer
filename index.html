@@ -1,26 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Stock Analyzer</title>
-    <link rel="stylesheet" type="text/css" href="styles.css">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>  // needs changing//
-    <script src="app.js"></script>
+    <title>Stock Dashboard</title>
+    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 </head>
 <body>
-    <h1>StockAnalyzer</h1>
-
-    <div id="chartContainer"></div>
-
-    <div id="userInput">
-        <label for="startDate">Start Date:</label>
-        <input type="date" id="startDate">
-
-        <label for="endDate">End Date:</label>
-        <input type="date" id="endDate">
-
-        <button id="updateButton">Update Chart</button>
+    <div id="dropdowns">
+        <select id="tickerDropdown"></select>
+        <select id="dateDropdown"></select>
     </div>
+    <div id="stockInfo"></div>
+    <div id="topPerformingStocks"></div>
+    <div id="candlestickChart"></div>
+    <div id="volumeChart"></div>
+    <div id="closingPriceChart"></div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.5.1/plotly.min.js"></script>
-    <script>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script type="module" src="/static/js/dashboard.js"></script>
+</body>
+</html>
