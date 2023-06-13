@@ -1,0 +1,27 @@
+Ticker,CompanyName,city,country,website,industry,revenueGrowth,ebitdaMargins
+aapl,Apple Inc.,Cupertino,United States,https://www.apple.com,Consumer Electronics,-0.025,0.32145
+abnb,"Airbnb, Inc.",San Francisco,United States,https://www.airbnb.com,Travel Services,0.205,0.22151
+adbe,Adobe Inc.,San Jose,United States,https://www.adobe.com,Software—Infrastructure,0.092,0.37341
+adi,"Analog Devices, Inc.",Wilmington,United States,https://www.analog.com,Semiconductors,0.098,0.5255
+aph,Amphenol Corporation,Wallingford,United States,https://www.amphenol.com,Electronic Components,0.007,0.23812
+crm,"Salesforce, Inc.",San Francisco,United States,https://www.salesforce.com,Software—Application,0.113,0.21395999
+csco,"Cisco Systems, Inc.",San Jose,United States,https://www.cisco.com,Communication Equipment,0.135,0.29517
+goog,Alphabet Inc.,Mountain View,United States,https://www.abc.xyz,Internet Content & Information,0.026,0.30742002
+ibm,International Business Machines Corporation,Armonk,United States,https://www.ibm.com,Information Technology Services,0.004,0.2087
+infy,Infosys Limited,Bengaluru,India,https://www.infosys.com,Information Technology Services,0.064,0.23077999
+intc,Intel Corporation,Santa Clara,United States,https://www.intel.com,Semiconductors,-0.362,0.17468001
+intu,Intuit Inc.,Mountain View,United States,https://www.intuit.com,Software—Application,0.069,0.26333
+meta,"Meta Platforms, Inc.",Menlo Park,United States,https://investor.fb.com,Internet Content & Information,0.026,0.36180001
+msft,Microsoft Corporation,Redmond,United States,https://www.microsoft.com,Software—Infrastructure,0.071,0.48209998
+now,"ServiceNow, Inc.",Santa Clara,United States,https://www.servicenow.com,Software—Application,0.217,0.11419
+nvda,NVIDIA Corporation,Santa Clara,United States,https://www.nvidia.com,Semiconductors,-0.132,0.23534
+orcl,Oracle Corporation,Austin,United States,https://www.oracle.com,Software—Infrastructure,0.179,0.38792
+pypl,"PayPal Holdings, Inc.",San Jose,United States,https://www.paypal.com,Credit Services,0.086,0.18834999
+shop,Shopify Inc.,Ottawa,Canada,https://www.shopify.com,Software—Application,0.252,-0.07555
+snow,Snowflake Inc.,Bozeman,United States,https://www.snowflake.com,Software—Application,0.476,-0.3768
+t,AT&T Inc.,Dallas,United States,https://www.att.com,Telecom Services,0.014,0.36153
+tmus,"T-Mobile US, Inc.",Bellevue,United States,https://www.t-mobile.com,Telecom Services,-0.024,0.33890998
+tsla,"Tesla, Inc.",Austin,United States,https://www.tesla.com,Auto Manufacturers,0.244,0.19371
+tsm,Taiwan Semiconductor Manufacturing Company Limited,Hsinchu City,Taiwan,https://www.tsmc.com,Semiconductors,0.036,0.68252
+uber,"Uber Technologies, Inc.",San Francisco,United States,https://www.uber.com,Software—Application,0.287,-0.02104
+wday,"Workday, Inc.",Pleasanton,United States,https://www.workday.com,Software—Application,0.174,0.027190002
