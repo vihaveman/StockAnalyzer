@@ -11,7 +11,7 @@
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "${workspaceFolder}/static/js/candlestick.js"
+            "program": "${workspaceFolder}/static/js/linegraph"
         }
     ]
 }

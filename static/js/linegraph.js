@@ -2,7 +2,7 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(fetchData);
 
 function fetchData() {
-  const url = 'http://127.0.0.1:5000/volume';
+  const url = 'http://127.0.0.1:5000/openclose';
 
   fetch(url)
     .then(response => response.json())
@@ -23,46 +23,34 @@ function fetchData() {
       function updateVisualizations() {
         const selectedTicker = tickerDropdown.value;
         const filteredData = data.filter(item => item.Ticker === selectedTicker);
-        const processedData = filteredData.map(item => ({
-          date: new Date(item['Date']).toLocaleDateString(),
-          volume: parseFloat(item['Volume'])
-        }));
-        drawBarGraph(processedData);
+        drawLineGraph(filteredData);
       }
     })
     .catch(error => console.error('Error:', error));
 }
 
-function drawBarGraph(data) {
+function drawLineGraph(data) {
   const dataTable = new google.visualization.DataTable();
   dataTable.addColumn('string', 'Date');
-  dataTable.addColumn('number', 'Volume');
+  dataTable.addColumn('number', 'Closing Price');
 
   data.forEach(item => {
-    dataTable.addRow([item.date, item.volume]);
+    dataTable.addRow([item.Date, item.Close]);
   });
 
   const options = {
-    title: 'Volume by Date',
+    title: 'Closing Prices',
     hAxis: {
       title: 'Date'
     },
     vAxis: {
-      title: 'Volume ($M)'
+      title: 'Closing Price'
+    },
+    legend: {
+      position: 'none'
     }
   };
 
-  const chart = new google.visualization.ColumnChart(document.getElementById('chart-container'));
+  const chart = new google.visualization.LineChart(document.getElementById('chart-container'));
   chart.draw(dataTable, options);
 }
-
-
-  
-  
-
-
-
-
-  
-  
-
