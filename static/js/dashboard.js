@@ -8,50 +8,63 @@ d3.json("http://127.0.0.1:5000/stockinfo").then(data => {
         tickerDropdown.append("option").text(ticker);
     });
 
-    // Populate the date dropdown with the unique dates from the data.
-    const dates = [...new Set(data.map(item => new Date(item.Date).getFullYear()))];
-    const dateDropdown = d3.select("#dateDropdown");
-    ["1 month", "3 months", "6 months", "1 year", "3 years", "5 years"].forEach(date => {
-        dateDropdown.append("option").text(date);
-    });
-
     // When a dropdown value is changed, update the visualizations.
-    d3.selectAll("#tickerDropdown, #dateDropdown").on("change", updateVisualizations);
+    d3.select("#tickerDropdown").on("change", updateVisualizations);
 
     function updateVisualizations() {
         const selectedTicker = tickerDropdown.node().value;
-        const selectedDate = dateDropdown.node().value;
 
-        // Filter the data based on the selected ticker and date.
-        const filteredData = data.filter(item => item.Ticker === selectedTicker && new Date(item.Date).getFullYear() === Number(selectedDate));
+        // Filter the data based on the selected ticker.
+        const filteredData = data.filter(item => item.Ticker === selectedTicker);
+
+        // Get the container to add the table to
+        const stockInfo = d3.select("#stockInfo");
+
+        // Clear the previous contents.
+        stockInfo.html(""); 
 
         // Check if filteredData is not empty
         if (filteredData.length > 0) {
-            // Update the stock information table.
-            const stockInfo = d3.select("#stockInfo");
-            stockInfo.html(""); // Clear the previous contents.
-            const table = stockInfo.append("table");
-            const thead = table.append("thead");
-            const tbody = table.append("tbody");
-
-            // Append the headers.
-            thead.append("tr").selectAll("th")
-                .data(Object.keys(filteredData[0])).enter()
-                .append("th").text(d => d);
-
-            // Append the rows.
-            tbody.selectAll("tr")
-                .data(filteredData).enter()
-                .append("tr").selectAll("td")
-                .data(d => Object.values(d)).enter()
-                .append("td").text(d => d);
+            // Create the table
+            createTable(filteredData, stockInfo);
         } else {
             // Handle the case where filteredData is empty, e.g., display a message
-            console.log("No data matches the selected ticker and date.");
+            console.log("No data matches the selected ticker.");
         }
     }
 
     // Call the function to update the visualizations initially.
     updateVisualizations();
 
+    function createTable(data, container) {
+        // If there's already a table remove it
+        container.select("table").remove();
+    
+        let table = container.append("table").attr("class", "green-table");
+        let tbody = table.append("tbody");
+    
+        // Exclude the "_id" key-value pair
+        let filteredData = data.map(d => {
+            delete d["_id"];
+            return d;
+        });
+    
+        // Transpose the data
+        let transposedData = Object.keys(filteredData[0]).map(key => {
+            return [key, ...filteredData.map(d => d[key])];
+        });
+    
+        // Append the rows
+        let rows = tbody.selectAll("tr")
+            .data(transposedData).enter()
+            .append("tr");
+    
+        // Append the cells
+        let cells = rows.selectAll("td")
+            .data(d => d).enter()
+            .append("td").text(d => d);
+    }
+        
+    
 }).catch(error => console.log(error));
+
