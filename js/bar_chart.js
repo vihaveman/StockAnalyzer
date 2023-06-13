@@ -4,8 +4,6 @@
 //   button.textContent = `Click count: ${event.detail}`;
 // });
 
-
-
 anychart.onDocumentReady(function () {
     
     anychart.data.loadJsonFile("https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=IBM&interval=5min&apikey=demo", 
@@ -72,3 +70,4 @@ anychart.onDocumentReady(function () {
     })
 
 })
+

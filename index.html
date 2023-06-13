@@ -20,35 +20,12 @@
     <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
 
-    <style type="text/css">      
-      html, body, #container { 
-        width: 100%; height: 95%; margin: 0; padding: 0;
-      }
-      html, body, #container-bar_chart { 
-        width: 100%; height: 95%; margin: 0; padding: 0;
-      } 
-      html, body, #container_daily { 
-        width: 100%; height: 95%; margin: 0; padding: 0;
-      }
-      html, body, #container_db { 
-        width: 100%; height: 95%; margin: 0; padding: 0;
-      }  
-    </style>
+   <link href='style.css' type="text/css" rel="stylesheet" >
   </head>
+
+
   <body>  
     <div id="container"></div>
-
-    
-    <script>
-     // put your js code here
-    </script>
-
-    <script src="https://d3js.org/d3.v5.min.js"></script>
-    <!--<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
-    
-    
-    
-    </div>
 
     <div id="container-bar_chart"></div>
 
@@ -56,37 +33,14 @@
 
     <div id="container_db"></div>
 
-    <script>
-      // All the code for the JS Stock Chart will come here
-    </script>
-
-    <!--<script src="https://d3js.org/d3.v5.min.js"></script>-->
-    <!--<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>-->
-    
-    <script src="js/app.js"></script>
-    <script src="js/bar_chart.js"></script>
-    <script src="js/daily_time.js"></script>
-    <script src="js/daily_time_bar.js"></script>
-
-    
+        
     <button>Click</button>
 
-    </div>
-
     
-
-
-    function:
-
-      <select id=selFunction onchange=setInterval();  >
-        <option>TIME_SERIES_INTRADAY</option>
-        <option>TIME_SERIES_DAILY</option>
-        <option>TIME_SERIES_DAILY_ADJUSTED</option>
-        <option>TIME_SERIES_WEEKLY</option>
-        <option>TIME_SERIES_WEEKLY_ADJUSTED</option>
-        <option>TIME_SERIES_MONTHLY</option>
-        <option>TIME_SERIES_MONTHLY_ADJUSTED</option>
-        <option>BATCH_STOCK_QUOTES</option>
+      <select id=selFunction  >  
+        <!-- onchange=setInterval(this.value) -->
+        <option id="5min Interval" value="5MIN_INTERVAL">5MIN_INTERVAL     </option>
+        <option id="TIME_SERIES_DAILY" value="TIME_SERIES_DAILY" >TIME_SERIES_DAILY   </option>
       </select>
   
       <span id=spnInterval >
@@ -101,7 +55,10 @@
       </span>
     </p>
   
-
+    <script src="js/app.js"></script>
+    <script src="js/bar_chart.js"></script>
+    <script src="js/daily_time.js"></script>
+    <script src="js/daily_time_bar.js"></script>
 
   </body>
 </html>
