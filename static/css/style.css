@@ -7,3 +7,12 @@ body {
 #dropdowns select {
     margin-right: 10px;
 }
+.green-table th {
+    background-color: #008000;
+    color: #FFFFFF;
+}
+
+.green-table td {
+    background-color: #1b9b50;
+    color: #800b00;
+}
