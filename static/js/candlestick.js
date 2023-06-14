@@ -9,10 +9,10 @@ function updateVisualizations() {
   selectedTicker = d3.select("#tickerDropdown").node().value;
 
   // Fetch the high-low data for the selected ticker
-  d3.json(`/highlow/${selectedTicker}`)
+  d3.json(`/highlow`)
     .then(highLowData => {
       // Fetch the open-close data for the selected ticker
-      d3.json(`/openclose/${selectedTicker}`)
+      d3.json(`/openclose`)
         .then(openCloseData => {
           // Combine the high-low and open-close data based on the date
           const combinedData = combineData(highLowData, openCloseData);

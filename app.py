@@ -4,30 +4,29 @@ from bson.json_util import dumps
 from flask_cors import CORS
 
 app = Flask(__name__)
-CORS(app)
 app.config["MONGO_URI"] = "mongodb://localhost:27017/StockData"
 mongo = PyMongo(app)
 
-@app.route('/stockinfo/<ticker>', methods=['GET'])
-def get_stockinfo(ticker):
-    data = mongo.db.StockInfo.find({"ticker": ticker})
+@app.route('/stockinfo', methods=['GET'])
+def get_stockinfo():
+    data = mongo.db.StockInfo.find()
     return dumps(data)  # Converts BSON to JSON
 
-@app.route('/openclose/<ticker>', methods=['GET'])
-def get_openclose(ticker):
-    data = mongo.db.OpenClose.find({"ticker": ticker})
-    json_data = dumps(data)  # Converts BSON to JSON
-    return jsonify(json_data)  # Return a JSON response
-
-@app.route('/highlow/<ticker>', methods=['GET'])
-def get_highlow(ticker):
-    data = mongo.db.HighLow.find({"ticker": ticker})
+@app.route('/openclose', methods=['GET'])
+def get_openclose():
+    data = mongo.db.OpenClose.find()
     return dumps(data)  # Converts BSON to JSON
 
-@app.route('/volume/<ticker>', methods=['GET'])
-def get_volume(ticker):
-    data = mongo.db.Volume.find({"ticker": ticker})
+@app.route('/highlow', methods=['GET'])
+def get_highlow():
+    data = mongo.db.HighLow.find()
     return dumps(data)  # Converts BSON to JSON
+
+@app.route('/volume', methods=['GET'])
+def get_volume():
+    data = mongo.db.Volume.find()
+    return dumps(data)  # Converts BSON to JSON
+
 
 @app.route("/")
 def main(): 
