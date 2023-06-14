@@ -8,7 +8,7 @@
     <title>JavaScript Stock Chart</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-
+    <script src="https://d3js.org/d3.v7.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-core.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-stock.min.js"></script>
     <script src="https://cdn.anychart.com/releases/8.11.0/js/anychart-cartesian.min.js"></script>
@@ -20,7 +20,7 @@
     <link href="https://cdn.anychart.com/releases/8.11.0/css/anychart-ui.min.css" type="text/css" rel="stylesheet">
     <link href="https://cdn.anychart.com/releases/8.11.0/fonts/css/anychart-font.min.css" type="text/css" rel="stylesheet">
 
-   <link href='style.css' type="text/css" rel="stylesheet" >
+    <link href='style.css' type="text/css" rel="stylesheet" >
   </head>
 
 
@@ -34,25 +34,16 @@
     <div id="container_db"></div>
 
         
-    <button>Click</button>
+    <!-- <button>Click</button> -->
 
     
-      <select id=selFunction  >  
+      <select id=selDataset  >  
         <!-- onchange=setInterval(this.value) -->
-        <option id="5min Interval" value="5MIN_INTERVAL">5MIN_INTERVAL     </option>
-        <option id="TIME_SERIES_DAILY" value="TIME_SERIES_DAILY" >TIME_SERIES_DAILY   </option>
+        <option id='1' value="INTERVAL">INTERVAL</option>
+        <option id='2' value="TIME">TIME</option>
       </select>
   
-      <span id=spnInterval >
-        interval:
-        <select id=selInterval >
-            <option>1min</option>
-            <option>5min</option>
-            <option>15min</option>
-            <option>30min</option>
-            <option>60min</option>
-        </select>
-      </span>
+      
     </p>
   
     <script src="js/app.js"></script>

@@ -15,15 +15,7 @@ anychart.onDocumentReady(function () {
         let dates = []
         let volume = []
   
-        // for (let i = 0; i < dates.length; i++) {
-        //     // console.log(Object.keys(myStockData[dates[i]]));
-        //     open.push(myStockData[dates[i]]['1. open'])
-        //     high.push(myStockData[dates[i]]['2. high'])
-        //     low.push(myStockData[dates[i]]['3. low'])
-        //     close.push(myStockData[dates[i]]['4. close'])
-                     
-        // }          
-        
+                
         let dataString = ''
   
         for (let i = 0; i < datesRaw.length; i++) { 
