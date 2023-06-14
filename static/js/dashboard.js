@@ -1,4 +1,4 @@
-d3.json("http://127.0.0.1:5000/stockinfo").then(data => {
+d3.json("/stockinfo").then(data => {
     console.log(data);
 
     // Populate the ticker dropdown with the unique tickers from the data.
