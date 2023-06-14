@@ -1,8 +1,5 @@
-google.charts.load('current', { 'packages': ['corechart'] });
-google.charts.setOnLoadCallback(fetchData);
-
 function fetchData() {
-  const url = 'http://127.0.0.1:5000/openclose';
+  const url = '/openclose'; 
 
   fetch(url)
     .then(response => response.json())
@@ -25,32 +22,68 @@ function fetchData() {
         const filteredData = data.filter(item => item.Ticker === selectedTicker);
         drawLineGraph(filteredData);
       }
+
+      updateVisualizations();
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.log(error));
 }
 
 function drawLineGraph(data) {
-  const dataTable = new google.visualization.DataTable();
-  dataTable.addColumn('string', 'Date');
-  dataTable.addColumn('number', 'Closing Price');
+  const margin = { top: 20, right: 20, bottom: 30, left: 50 };
+  const width = 600 - margin.left - margin.right;
+  const height = 400 - margin.top - margin.bottom;
 
-  data.forEach(item => {
-    dataTable.addRow([item.Date, item.Close]);
-  });
+  const svg = d3
+    .select('#chart-container')
+    .append('svg')
+    .attr('width', width + margin.left + margin.right)
+    .attr('height', height + margin.top + margin.bottom)
+    .append('g')
+    .attr('transform', `translate(${margin.left},${margin.top})`);
 
-  const options = {
-    title: 'Closing Prices',
-    hAxis: {
-      title: 'Date'
-    },
-    vAxis: {
-      title: 'Closing Price'
-    },
-    legend: {
-      position: 'none'
-    }
-  };
+  const xScale = d3.scaleTime()
+    .range([0, width]);
 
-  const chart = new google.visualization.LineChart(document.getElementById('chart-container'));
-  chart.draw(dataTable, options);
+  const yScale = d3.scaleLinear()
+    .range([height, 0]);
+
+  const line = d3.line()
+    .x(d => xScale(d.Date))
+    .y(d => yScale(d.Close));
+
+  xScale.domain(d3.extent(data, d => d.Date));
+  yScale.domain([0, d3.max(data, d => d.Close)]);
+
+  svg.append('path')
+    .datum(data)
+    .attr('class', 'line')
+    .attr('d', line);
+
+  svg.append('g')
+    .attr('class', 'x-axis')
+    .attr('transform', `translate(0,${height})`)
+    .call(d3.axisBottom(xScale));
+
+  svg.append('g')
+    .attr('class', 'y-axis')
+    .call(d3.axisLeft(yScale));
+
+  svg.append('text')
+    .attr('x', width / 2)
+    .attr('y', -10)
+    .attr('text-anchor', 'middle')
+    .text('Closing Prices');
 }
+
+// Load D3.js and fetch data
+document.addEventListener('DOMContentLoaded', () => {
+  Promise.all([
+    import('https://d3js.org/d3.v7.min.js'), // Load D3.js from the CDN
+    fetchData() // Fetch data and draw the line graph
+  ]).catch(error => console.log(error));
+});
+
+
+
+
+
