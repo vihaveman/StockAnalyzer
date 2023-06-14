@@ -10,26 +10,23 @@ mongo = PyMongo(app)
 
 @app.route('/stockinfo/<ticker>', methods=['GET'])
 def get_stockinfo(ticker):
-    data = mongo.db.StockInfo.find()
+    data = mongo.db.StockInfo.find({"ticker": ticker})
     return dumps(data)  # Converts BSON to JSON
-
-from flask import jsonify
 
 @app.route('/openclose/<ticker>', methods=['GET'])
 def get_openclose(ticker):
-    data = mongo.db.OpenClose.find()
+    data = mongo.db.OpenClose.find({"ticker": ticker})
     json_data = dumps(data)  # Converts BSON to JSON
     return jsonify(json_data)  # Return a JSON response
 
-
 @app.route('/highlow/<ticker>', methods=['GET'])
 def get_highlow(ticker):
-    data = mongo.db.HighLow.find()
+    data = mongo.db.HighLow.find({"ticker": ticker})
     return dumps(data)  # Converts BSON to JSON
 
 @app.route('/volume/<ticker>', methods=['GET'])
 def get_volume(ticker):
-    data = mongo.db.Volume.find()
+    data = mongo.db.Volume.find({"ticker": ticker})
     return dumps(data)  # Converts BSON to JSON
 
 @app.route("/")
@@ -38,5 +35,7 @@ def main():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+
 
 
