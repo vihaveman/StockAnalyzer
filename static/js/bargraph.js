@@ -2,7 +2,7 @@ google.charts.load('current', { 'packages': ['corechart'] });
 google.charts.setOnLoadCallback(fetchData);
 
 function fetchData() {
-  const url = 'http://127.0.0.1:5000/volume';
+  const url = '/volume';
 
   fetch(url)
     .then(response => response.json())
@@ -30,7 +30,7 @@ function fetchData() {
         drawBarGraph(processedData);
       }
     })
-    .catch(error => console.error('Error:', error));
+    .catch(error => console.log(error));;
 }
 
 function drawBarGraph(data) {
