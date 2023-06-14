@@ -1,12 +1,32 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <title>Stock Dashboard</title>
-    <link rel="stylesheet" type="text/css" href="/static/css/style.css">
-</head>
-<body>
-    <div id="dropdowns">
-        <select id="tickerDropdown"></select>
+    <head>
+        <title>STOCKANALYZER</title>
+        <style>
+            body {
+                background-color: black;
+                color: white;
+            }
+    
+            #pageTitle {
+                text-align: center;
+                border: 2px solid black;
+                padding: 10px;
+                background: linear-gradient(to right, green, red);
+                color: white;
+            }
+    
+            .dropdown-header {
+                background-color: green;
+                color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <h1 id="pageTitle">STOCKANALYZER</h1>
+        <div id="dropdowns">
+          <h2>Select Ticker</h2>
+            <select id="tickerDropdown">
+            </select>
     </div>
     <div id="stockInfo"></div>
     <div id="tableContainer"></div>
