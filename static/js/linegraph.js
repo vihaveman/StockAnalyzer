@@ -41,7 +41,8 @@ function drawLineGraph(data) {
   const height = 400 - margin.top - margin.bottom;
 
   const svg = d3
-    .select('#chart-container')
+    .select('#line-chart-container')
+    .html('') // Clear any existing SVG elements
     .append('svg')
     .attr('width', width + margin.left + margin.right)
     .attr('height', height + margin.top + margin.bottom)
@@ -64,7 +65,8 @@ function drawLineGraph(data) {
   svg.append('path')
     .datum(data)
     .attr('class', 'line')
-    .attr('d', line);
+    .attr('d', line)
+    .style('stroke', 'red');
 
   svg.append('g')
     .attr('class', 'x-axis')
@@ -91,7 +93,4 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 
-
-
-
-
+fetchData();
