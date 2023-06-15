@@ -1,0 +1,25 @@
+body {
+  background-color: grey;
+  color: white;
+}
+
+#pageTitle {
+  text-align: center;
+  border: 2px solid black;
+  padding: 10px;
+  background: linear-gradient(to right, green, red);
+  color: white;
+}
+
+.dropdown-header {
+  background-color: green;
+  color: white;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+/* more CSS here... */
+
+  
