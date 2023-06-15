@@ -27,6 +27,10 @@ def get_volume():
     data = mongo.db.Volume.find()
     return dumps(data)  # Converts BSON to JSON
 
+@app.route('/tradinginfo', methods=['GET'])
+def get_tradinginfo():
+    data = mongo.db.TradingInfo.find()
+    return dumps(data)  # Converts BSON to JSON
 
 @app.route("/")
 def main(): 

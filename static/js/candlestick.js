@@ -1,82 +1,81 @@
-//console.log(typeof google.charts.load); // Check if google.charts.load is a function
-//console.log(typeof google.charts.setOnLoadCallback); // Check if google.charts.setOnLoadCallback is a function
+function fetchData() {
+  const url = '/tradinginfo';
 
-// Define the initial ticker
-let selectedTicker = "";
+  fetch(url)
+    .then(response => response.json())
+    .then(data => {
+      const tickers = [...new Set(data.map(item => item.Ticker))];
+      const tickerDropdown = document.getElementById("tickerDropdown");
 
-// Define the updateVisualizations function
-function updateVisualizations() {
-  let selectedTicker = d3.select("#tickerDropdown").node().value;
-  console.log(selectedTicker);
-  // Fetch the high-low data for the selected ticker
-  d3.json('/highlow')
-    .then(highLowData => {
-      // Fetch the open-close data for the selected ticker
-      d3.json('/openclose')
-        .then(openCloseData => {
-          // Combine the high-low and open-close data based on the date
-          const combinedData = combineData(highLowData, openCloseData);
-            d3.select("#candlestickChart").html("")
-          // Update the candlestick chart
-          drawCandlestickChart(combinedData);
-        })
-        .catch(error => console.log(error));
+      tickers.forEach(ticker => {
+        const option = document.createElement("option");
+        option.text = ticker;
+        tickerDropdown.appendChild(option);
+      });
+
+      // When a dropdown value is changed, update the visualizations.
+      tickerDropdown.addEventListener("change", updateVisualizations.bind(null, data, tickerDropdown));
+      // Call updateVisualizations with the fetched data
+      updateVisualizations(data, tickerDropdown);
     })
     .catch(error => console.log(error));
 }
 
-// Load the Visualization API and the corechart package
-google.charts.load("current", { packages: ["corechart"] });
-
-// Set a callback function to execute when the Google Charts library is loaded
-google.charts.setOnLoadCallback(updateVisualizations);
-
-// Function to combine high-low and open-close data based on date
-function combineData(highLowData, openCloseData) {
-  return highLowData.map(highLowItem => {
-    const correspondingOpenCloseItem = openCloseData.find(
-      openCloseItem => openCloseItem.Date === highLowItem.Date
-    );
-    return { ...highLowItem, ...correspondingOpenCloseItem };
-  });
+function updateVisualizations(data, tickerDropdown) {
+  const selectedTicker = tickerDropdown.value;
+  const filteredData = data.filter(item => item.Ticker === selectedTicker);
+  drawCandlestickChart(filteredData);
 }
 
-// Function to draw the candlestick chart
 function drawCandlestickChart(data) {
-  // Create a DataTable and add the data
-  const dataTable = new google.visualization.DataTable();
-  dataTable.addColumn("date", "Date");
-  dataTable.addColumn("number", "Low");
-  dataTable.addColumn("number", "Open");
-  dataTable.addColumn("number", "Close");
-  dataTable.addColumn("number", "High");
+  const dates = [];
+  const lows = [];
+  const opens = [];
+  const closes = [];
+  const highs = [];
 
   data.forEach(item => {
-    const date = new Date(item.Date);
-    dataTable.addRow([date, item.Low, item.Open, item.Close, item.High]);
+    const dateValue = new Date(Date.parse(item.Date));
+    const lowValue = parseFloat(item.Low);
+    const openValue = parseFloat(item.Open);
+    const closeValue = parseFloat(item.Close);
+    const highValue = parseFloat(item.High);
+
+    dates.push(dateValue);
+    lows.push(lowValue);
+    opens.push(openValue);
+    closes.push(closeValue);
+    highs.push(highValue);
   });
 
-  // Set options for the candlestick chart
-  const options = {
-    legend: "none",
-    candlestick: {
-      fallingColor: { strokeWidth: 0, fill: "red" },
-      risingColor: { strokeWidth: 0, fill: "green" },
-    },
-    chartArea: { width: "80%", height: "80%" },
+  const trace = {
+    x: dates,
+    close: closes,
+    high: highs,
+    low: lows,
+    open: opens,
+    type: 'candlestick',
+    increasing: { line: { color: 'green' } },
+    decreasing: { line: { color: 'red' } },
   };
 
-  // Create a new CandlestickChart and attach it to the container element
-  var chart = new google.visualization.CandlestickChart(
-    document.getElementById("candlestickChart")
-  );
+  const layout = {
+    title: 'Monthly Trading',
+    xaxis: {
+      title: 'Date'
+    },
+    yaxis: {
+      title: 'Price'
+    }
+  };
 
-  // Draw the chart with the data and options
-  chart.draw(dataTable, options);
+  const dataPlotly = [trace];
+
+  Plotly.newPlot('candlestickChart', dataPlotly, layout);
 }
 
-// When a dropdown value is changed, update the visualizations
-d3.select("#tickerDropdown").on("change", updateVisualizations);
+fetchData();
+
 
 
 

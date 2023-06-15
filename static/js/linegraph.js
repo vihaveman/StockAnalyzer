@@ -41,7 +41,7 @@ function drawLineGraph(data) {
   const height = 400 - margin.top - margin.bottom;
 
   const svg = d3
-    .select('#line-chart-container')
+    .select('#lineChartContainer')
     .html('') // Clear any existing SVG elements
     .append('svg')
     .attr('width', width + margin.left + margin.right)
