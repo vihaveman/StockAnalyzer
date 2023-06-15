@@ -17,20 +17,22 @@ function fetchData() {
       });
 
       // When a dropdown value is changed, update the visualizations.
-      tickerDropdown.addEventListener("change", updateVisualizations);
-      updateVisualizations();
-
-      function updateVisualizations() {
-        const selectedTicker = tickerDropdown.value;
-        const filteredData = data.filter(item => item.Ticker === selectedTicker);
-        const processedData = filteredData.map(item => ({
-          date: new Date(item['Date']).toLocaleDateString(),
-          volume: parseFloat(item['Volume'])
-        }));
-        drawBarGraph(processedData);
-      }
+      tickerDropdown.addEventListener("change", updateVisualizations.bind(null, data));
+      d3.select("#volumeChart").html("")
+      // Call updateVisualizations with the fetched data
+      updateVisualizations(data);
     })
-    .catch(error => console.log(error));;
+    .catch(error => console.log(error));
+}
+
+function updateVisualizations(data) {
+  const selectedTicker = tickerDropdown.value;
+  const filteredData = data.filter(item => item.Ticker === selectedTicker);
+  const processedData = filteredData.map(item => ({
+    date: new Date(item['Date']).toLocaleDateString(),
+    volume: parseFloat(item['Volume'])
+  }));
+  drawBarGraph(processedData);
 }
 
 function drawBarGraph(data) {
@@ -56,13 +58,4 @@ function drawBarGraph(data) {
   chart.draw(dataTable, options);
 }
 
-
-  
-  
-
-
-
-
-  
-  
 

@@ -1,25 +1,7 @@
 <html>
     <head>
         <title>STOCKANALYZER</title>
-        <style>
-            body {
-                background-color: black;
-                color: white;
-            }
-    
-            #pageTitle {
-                text-align: center;
-                border: 2px solid black;
-                padding: 10px;
-                background: linear-gradient(to right, green, red);
-                color: white;
-            }
-    
-            .dropdown-header {
-                background-color: green;
-                color: white;
-            }
-        </style>
+       
     </head>
     <body>
         <h1 id="pageTitle">STOCKANALYZER</h1>
@@ -35,8 +17,7 @@
     <div id="volumeChart"></div>
     <div id="closingPriceChart"></div>
     <div id="chart-container"></div> <!-- Add a container for the bar graph -->
-
-    <div id="chart-container"></div> <!-- Add a container for the bar graph -->
+    <div id="line-chart-container"></div>
 
 <script src="{{ url_for('static', filename='js/d3.js') }}"></script>
 <script src="https://www.gstatic.com/charts/loader.js"></script>
