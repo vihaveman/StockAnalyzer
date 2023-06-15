@@ -20,6 +20,13 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* more CSS here... */
+.green-bar {
+  fill: rgb(166, 194, 166);
+}
+
+.red-bar {
+  fill: rgb(193, 144, 144);
+}
+
 
   
