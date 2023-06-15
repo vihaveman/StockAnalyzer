@@ -1,12 +1,9 @@
-//console.log(typeof google.charts.load); // Check if google.charts.load is a function
-//console.log(typeof google.charts.setOnLoadCallback); // Check if google.charts.setOnLoadCallback is a function
-
 // Define the initial ticker
 let selectedTicker = "";
 
 // Define the updateVisualizations function
 function updateVisualizations() {
-  let selectedTicker = d3.select("#tickerDropdown").node().value;
+  selectedTicker = d3.select("#tickerDropdown").node().value;
   console.log(selectedTicker);
   // Fetch the high-low data for the selected ticker
   d3.json('/highlow')
@@ -14,9 +11,9 @@ function updateVisualizations() {
       // Fetch the open-close data for the selected ticker
       d3.json('/openclose')
         .then(openCloseData => {
-          // Combine the high-low and open-close data based on the date
-          const combinedData = combineData(highLowData, openCloseData);
-            d3.select("#candlestickChart").html("")
+          // Combine the high-low and open-close data based on the date and selected ticker
+          const combinedData = combineData(highLowData, openCloseData, selectedTicker);
+          d3.select("#candlestickChart").html("");
           // Update the candlestick chart
           drawCandlestickChart(combinedData);
         })
@@ -31,14 +28,16 @@ google.charts.load("current", { packages: ["corechart"] });
 // Set a callback function to execute when the Google Charts library is loaded
 google.charts.setOnLoadCallback(updateVisualizations);
 
-// Function to combine high-low and open-close data based on date
-function combineData(highLowData, openCloseData) {
-  return highLowData.map(highLowItem => {
-    const correspondingOpenCloseItem = openCloseData.find(
-      openCloseItem => openCloseItem.Date === highLowItem.Date
-    );
-    return { ...highLowItem, ...correspondingOpenCloseItem };
-  });
+// Function to combine high-low and open-close data based on date and selected ticker
+function combineData(highLowData, openCloseData, selectedTicker) {
+  return highLowData
+    .filter(item => item.Ticker === selectedTicker)
+    .map(highLowItem => {
+      const correspondingOpenCloseItem = openCloseData.find(
+        openCloseItem => openCloseItem.Date === highLowItem.Date
+      );
+      return { ...highLowItem, ...correspondingOpenCloseItem };
+    });
 }
 
 // Function to draw the candlestick chart
@@ -67,7 +66,7 @@ function drawCandlestickChart(data) {
   };
 
   // Create a new CandlestickChart and attach it to the container element
-  var chart = new google.visualization.CandlestickChart(
+  const chart = new google.visualization.CandlestickChart(
     document.getElementById("candlestickChart")
   );
 
@@ -77,6 +76,7 @@ function drawCandlestickChart(data) {
 
 // When a dropdown value is changed, update the visualizations
 d3.select("#tickerDropdown").on("change", updateVisualizations);
+
 
 
 
