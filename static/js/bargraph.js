@@ -1,4 +1,8 @@
-google.charts.load('current', { 'packages': ['corechart'] });
+// Define the tickerDropdown variable
+const tickerDropdown = document.getElementById("tickerDropdown");
+
+// Fetch data and set up event listener
+google.charts.load('current', { packages: ['corechart'] });
 google.charts.setOnLoadCallback(fetchData);
 
 function fetchData() {
@@ -8,7 +12,6 @@ function fetchData() {
     .then(response => response.json())
     .then(data => {
       const tickers = [...new Set(data.map(item => item.Ticker))];
-      const tickerDropdown = document.getElementById("tickerDropdown");
 
       tickers.forEach(ticker => {
         const option = document.createElement("option");
@@ -17,8 +20,10 @@ function fetchData() {
       });
 
       // When a dropdown value is changed, update the visualizations.
-      tickerDropdown.addEventListener("change", updateVisualizations.bind(null, data));
-      d3.select("#volumeChart").html("")
+      tickerDropdown.addEventListener("change", () => updateVisualizations(data));
+      
+      d3.select("#volumeChart").html("");
+
       // Call updateVisualizations with the fetched data
       updateVisualizations(data);
     })
@@ -57,5 +62,6 @@ function drawBarGraph(data) {
   const chart = new google.visualization.ColumnChart(document.getElementById('chart-container'));
   chart.draw(dataTable, options);
 }
+
 
 
