@@ -1,22 +1,22 @@
-console.log(typeof google.charts.load); // Check if google.charts.load is a function
-console.log(typeof google.charts.setOnLoadCallback); // Check if google.charts.setOnLoadCallback is a function
+//console.log(typeof google.charts.load); // Check if google.charts.load is a function
+//console.log(typeof google.charts.setOnLoadCallback); // Check if google.charts.setOnLoadCallback is a function
 
 // Define the initial ticker
 let selectedTicker = "";
 
 // Define the updateVisualizations function
 function updateVisualizations() {
-  selectedTicker = d3.select("#tickerDropdown").node().value;
-
+  let selectedTicker = d3.select("#tickerDropdown").node().value;
+  console.log(selectedTicker);
   // Fetch the high-low data for the selected ticker
-  d3.json(`/highlow`)
+  d3.json('/highlow')
     .then(highLowData => {
       // Fetch the open-close data for the selected ticker
-      d3.json(`/openclose`)
+      d3.json('/openclose')
         .then(openCloseData => {
           // Combine the high-low and open-close data based on the date
           const combinedData = combineData(highLowData, openCloseData);
-
+            d3.select("#candlestickChart").html("")
           // Update the candlestick chart
           drawCandlestickChart(combinedData);
         })
@@ -67,7 +67,7 @@ function drawCandlestickChart(data) {
   };
 
   // Create a new CandlestickChart and attach it to the container element
-  const chart = new google.visualization.CandlestickChart(
+  var chart = new google.visualization.CandlestickChart(
     document.getElementById("candlestickChart")
   );
 
