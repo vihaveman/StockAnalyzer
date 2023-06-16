@@ -1,0 +1,73 @@
+html,
+body,
+#map-id {
+  height: 100%;
+  padding: 0;
+  margin: 0;
+}
+
+#title {
+  font-size: 2rem;
+  text-align: center;
+}
+#custom-bg {
+  background-image: url('https://assets.cmcmarkets.com/images/Forex-candlestick-patterns.png');
+  -webkit-background-size: cover; 
+  -moz-background-size: cover;
+  -o-background-size: cover; 
+  background-size: cover; 
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#text {
+  font-weight: bold;
+  font-size: large;
+}
+
+.col-md-12.jumbotron.text-center {
+  background-image: url('https://assets.cmcmarkets.com/images/Forex-candlestick-patterns.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  color:white;
+}   
+/* #chartContainer {
+  width: 100%;
+  height: 400px;
+  background-color: #F5F5F5;
+  border: 1px solid #CCC;
+  margin-bottom: 20px;
+} */
+
+#userInput {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#userInput label {
+  font-weight: bold;
+  background-color: #dbdee1;
+  margin-right: 10px;
+}
+
+#userInput input[type="date"] {
+  padding: 5px;
+  border: 1px solid #CCC;
+  border-radius: 5px;
+}
+
+#updateButton {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: #FFF;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#updateButton:hover {
+  background-color: #0069d9;
+}
